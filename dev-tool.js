@@ -70,6 +70,8 @@ module.exports = function(DOCUMENT_ROOT, STATIC_ROOT){
             res.end(e.message);
         }
 
+        req.readable = true;
+
         try{
             if(rewrites){
                 var originalUrl = req.originalUrl;
