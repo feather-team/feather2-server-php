@@ -94,7 +94,12 @@ module.exports = function(DOCUMENT_ROOT, STATIC_ROOT){
             res.status(500).send(e.message);
         }
 
-        next();
+        if(/\.json$/.test(url) && /^\/?[^\/]+\/data\//.test(url)){
+            var file = path.join(PROJECT_ROOT, 'data', url);
+            res.sendFile(file);
+        }else{
+            next();
+        }
     });
 
     return router;
