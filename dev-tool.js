@@ -73,9 +73,9 @@ module.exports = function(DOCUMENT_ROOT, STATIC_ROOT){
         req.readable = true;
 
         try{
-            if(rewrites){
-                var originalUrl = req.originalUrl;
+            var originalUrl = req.originalUrl.replace(/^https?:\/\/[^\/]+/, '');
 
+            if(rewrites){
                 for(var key in rewrites){
                     if((new RegExp(key, 'i')).test(originalUrl)){
                         url = rewrites[key];
@@ -85,11 +85,13 @@ module.exports = function(DOCUMENT_ROOT, STATIC_ROOT){
                             return;
                         }
 
-                        req.originalUrl = req.url = url + (urlParse(originalUrl).search || '');
+                        originalUrl = (url + (urlParse(originalUrl).search || ''));
                         break;
                     }
                 }
             }
+
+            req.originalUrl = req.url = originalUrl.replace(/^https?:\/\/[^\/]+/, '')
         }catch(e){
             res.status(500).send(e.message);
         }

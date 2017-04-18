@@ -1,6 +1,6 @@
 {
   "name": "feather2-server-php",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "feather2 server php",
   "main": "index.js",
   "scripts": {
